@@ -1,0 +1,159 @@
+{
+  "time": 0,
+  "camera": {
+    "position": { "x": 0, "y": 1.5, "z": 10 },
+    "rotation": { "x": 0, "y": 0, "z": 0 },
+    "fov": 70,
+    "near": 0.1,
+    "far": 100
+  },
+  "environment": {
+    "ambientLight": 0.42,
+    "backgroundColor": { "r": 4, "g": 4, "b": 12 }
+  },
+  "lights": [
+    {
+      "type": "directional",
+      "direction": { "x": -0.4, "y": -1.0, "z": -0.6 },
+      "intensity": 0.5,
+      "color": { "r": 180, "g": 190, "b": 255 }
+    },
+    {
+      "type": "point",
+      "position": { "x": -3, "y": 5, "z": 2 },
+      "intensity": 10,
+      "color": { "r": 255, "g": 110, "b": 40 },
+      "range": 14
+    },
+    {
+      "type": "point",
+      "position": { "x": 4, "y": 4, "z": -1 },
+      "intensity": 8,
+      "color": { "r": 60, "g": 160, "b": 255 },
+      "range": 12
+    },
+    {
+      "type": "spot",
+      "position": { "x": 0, "y": 8, "z": -4 },
+      "direction": { "x": 0, "y": -1, "z": 0 },
+      "intensity": 20,
+      "color": { "r": 255, "g": 255, "b": 200 }
+    }
+  ],
+  "entities": [
+    {
+      "id": "ground",
+      "transform": {
+        "position": { "x": 0, "y": 0, "z": 0 },
+        "rotation": { "x": 0, "y": 0, "z": 0 },
+        "scale": { "x": 1, "y": 1, "z": 1 }
+      },
+      "geometry": { "type": "plane", "normal": { "x": 0, "y": 1, "z": 0 } },
+      "material": {
+        "baseColor": { "r": 70, "g": 75, "b": 90 },
+        "brightness": 0.6,
+        "roughness": 0.9,
+        "reflectivity": 0.05,
+        "glyphStyle": "block"
+      }
+    },
+    {
+      "id": "sphere_main",
+      "transform": {
+        "position": { "x": -3.5, "y": 1.5, "z": 0 },
+        "rotation": { "x": 0, "y": 0, "z": 0 },
+        "scale": { "x": 1, "y": 1, "z": 1 }
+      },
+      "geometry": { "type": "sphere", "radius": 1.5 },
+      "material": {
+        "baseColor": { "r": 255, "g": 100, "b": 40 },
+        "brightness": 1,
+        "emissive": 0.08,
+        "roughness": 0.3,
+        "reflectivity": 0.2,
+        "glyphStyle": "round"
+      }
+    },
+    {
+      "id": "box_main",
+      "transform": {
+        "position": { "x": 0, "y": 1.0, "z": -1 },
+        "rotation": { "x": 0, "y": 0.6, "z": 0 },
+        "scale": { "x": 1, "y": 1, "z": 1 }
+      },
+      "geometry": { "type": "box", "size": { "x": 2, "y": 2, "z": 2 } },
+      "material": {
+        "baseColor": { "r": 40, "g": 210, "b": 170 },
+        "brightness": 1,
+        "roughness": 0.6,
+        "reflectivity": 0.1,
+        "glyphStyle": "angular"
+      }
+    },
+    {
+      "id": "cylinder_main",
+      "transform": {
+        "position": { "x": 3.5, "y": 2.0, "z": 0 },
+        "rotation": { "x": 0, "y": 0, "z": 0 },
+        "scale": { "x": 1, "y": 1, "z": 1 }
+      },
+      "geometry": { "type": "cylinder", "radius": 0.8, "height": 4.0 },
+      "material": {
+        "baseColor": { "r": 180, "g": 70, "b": 255 },
+        "brightness": 1,
+        "roughness": 0.4,
+        "reflectivity": 0.15,
+        "glyphStyle": "line"
+      }
+    },
+    {
+      "id": "sphere_emissive",
+      "transform": {
+        "position": { "x": 0, "y": 0.4, "z": -5 },
+        "rotation": { "x": 0, "y": 0, "z": 0 },
+        "scale": { "x": 1, "y": 1, "z": 1 }
+      },
+      "geometry": { "type": "sphere", "radius": 0.4 },
+      "material": {
+        "baseColor": { "r": 255, "g": 240, "b": 80 },
+        "brightness": 1,
+        "emissive": 1.2,
+        "roughness": 0.1,
+        "reflectivity": 0.0,
+        "glyphStyle": "dense"
+      }
+    },
+    {
+      "id": "box_tall",
+      "transform": {
+        "position": { "x": -7, "y": 3.0, "z": -2 },
+        "rotation": { "x": 0, "y": 0.3, "z": 0 },
+        "scale": { "x": 1, "y": 1, "z": 1 }
+      },
+      "geometry": { "type": "box", "size": { "x": 1.5, "y": 6, "z": 1.5 } },
+      "material": {
+        "baseColor": { "r": 200, "g": 200, "b": 210 },
+        "brightness": 0.8,
+        "roughness": 0.7,
+        "reflectivity": 0.2,
+        "glyphStyle": "symbolic"
+      }
+    },
+    {
+      "id": "cylinder_wide",
+      "transform": {
+        "position": { "x": 7, "y": 0.5, "z": -3 },
+        "rotation": { "x": 0, "y": 0, "z": 0 },
+        "scale": { "x": 1, "y": 1, "z": 1 }
+      },
+      "geometry": { "type": "cylinder", "radius": 2.5, "height": 1.0 },
+      "material": {
+        "baseColor": { "r": 100, "g": 180, "b": 100 },
+        "brightness": 0.9,
+        "roughness": 0.5,
+        "reflectivity": 0.1,
+        "glyphStyle": "noise"
+      }
+    }
+  ]
+}
