@@ -10,16 +10,16 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "type": "commonjs",
   "dependencies": {
     "better-sqlite3": "^12.6.2",
-    "electron": "^40.6.0",
     "typescript": "^5.9.3"
   },
   "devDependencies": {
     "@electron/rebuild": "^3.7.2",
     "@types/better-sqlite3": "^7.6.13",
-    "ts-node": "^10.9.2"
+    "ts-node": "^10.9.2",
+    "electron": "^40.6.0"
   }
 }
