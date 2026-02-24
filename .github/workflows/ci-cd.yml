@@ -31,21 +31,29 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      # Linux dependencies required by Electron
+      # Linux dependencies required by Electron and electron-builder
       - name: Install Linux build deps
         if: runner.os == 'Linux'
         run: |
           sudo apt-get update
           sudo apt-get install -y \
             libarchive-tools \
-            rpm
+            rpm \
+            libgtk-3-dev \
+            libnotify-dev \
+            libnss3 \
+            libxss1
+
+      # Rebuild native modules (e.g. better-sqlite3) for the target Electron binary
+      - name: Rebuild native modules
+        run: npx electron-rebuild
+        env:
+          npm_config_target: electron
 
       - name: Build app
         run: npm run build
-        env:
-          CI: true
 
-      - name: Package Electron app
+      - name: Package & publish Electron app
         run: npx electron-builder --publish always
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

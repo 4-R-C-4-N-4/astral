@@ -4,10 +4,8 @@
   "description": "",
   "main": "dist/main.js",
   "scripts": {
-    "build": "npx tsc",
+    "build": "tsc -p tsconfig.json",
     "start": "npm run build && npx electron .",
-    "build:main": "tsc -p tsconfig.json",
-    "build": "npm run build:main && vite build",
     "dist": "electron-builder --publish always"
   },
   "keywords": [],
@@ -19,7 +17,7 @@
     "typescript": "^5.9.3"
   },
   "devDependencies": {
-    "@electron/rebuild": "^0.0.0",
+    "@electron/rebuild": "^3.6.0",
     "@types/better-sqlite3": "^7.6.13",
     "electron": "^40.6.0",
     "electron-builder": "^24",
@@ -34,11 +32,9 @@
     },
     "files": [
       "dist/**/*",
-      "main.js",
-      "preload.js",
       "assets/**/*"
     ],
-    "extraResources": [],
+    "extraResources": ["glyph_features.sqlite"],
     "linux": {
       "icon": "assets/icon.png",
       "target": [
