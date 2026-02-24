@@ -6,7 +6,9 @@
   "scripts": {
     "build": "npx tsc",
     "start": "npm run build && npx electron .",
-    "build:all": "npm run build && electron-builder -wml"
+    "build:main": "tsc -p tsconfig.json",
+    "build": "npm run build:main && vite build",
+    "dist": "electron-builder --publish always"
   },
   "keywords": [],
   "author": "",
@@ -14,7 +16,6 @@
   "type": "commonjs",
   "dependencies": {
     "better-sqlite3": "^12.6.2",
-    "electron-builder": "^25.1.8",
     "typescript": "^5.9.3"
   },
   "devDependencies": {
@@ -39,6 +40,7 @@
     ],
     "extraResources": [],
     "linux": {
+      "icon": "assets/icon.png",
       "target": [
         "AppImage"
       ],
@@ -54,6 +56,7 @@
       "category": "art"
     },
     "win": {
+      "icon": "assets/icon.ico",
       "target": [
         "nsis",
         "portable"
