@@ -1,73 +1,51 @@
-name: Build/release
+name: Build & Release Astral
 
 on:
   push:
-    branches:
-      - 'main'
+    branches: ["main"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
 
 jobs:
-  release:
+  build:
+    name: Build (${{ matrix.os }})
     runs-on: ${{ matrix.os }}
 
     strategy:
+      fail-fast: false
       matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
+        os: [ubuntu-latest, windows-latest, macos-latest]
 
     steps:
-      # Step 1: Checkout the repository
-      - name: Check out repository
-        uses: actions/checkout@v5
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-      # Step 2: Detect if commit is a tag
-      - uses: kaisugi/action-regex-match@v1.0.1
-        id: regex-match
-        with:
-          text: ${{ github.event.head_commit.message }}
-          regex: '^v[0-9]+\.[0-9]+\.[0-9]+$'
-
-      # Step 3: Set up Node.js
-      - name: Set up Node.js
-        uses: actions/setup-node@v5
+      - name: Setup Node
+        uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'npm'
+          cache: npm
 
-      # Step 4: Package Electron (non-tagged commits)
-      - name: Package Electron
-        if: ${{ steps.regex-match.outputs.match == '' }}
+      - name: Install dependencies
+        run: npm ci
+
+      # Linux dependencies required by Electron
+      - name: Install Linux build deps
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            libarchive-tools \
+            rpm
+
+      - name: Build app
+        run: npm run build
+        env:
+          CI: true
+
+      - name: Package Electron app
+        run: npx electron-builder --publish always
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          npm i
-          npx electron-builder --publish never
-
-      # Step 5: Package and Publish Electron (tagged commits)
-      - name: Package and Publish Electron
-        if: ${{ steps.regex-match.outputs.match != '' }}
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          npm i
-          npx electron-builder --publish always
-
-      # Step 6: Build Changelog
-      - name: Build Changelog
-        if: ${{ steps.regex-match.outputs.match != '' }}
-        id: changelog
-        uses: ardalanamini/auto-changelog@v4
-        with:
-          mention-authors: false
-          mention-new-contributors: false
-          include-compare-link: false
-          semver: false
-
-      # Step 7: Update GitHub Release
-      - name: Update Release
-        if: ${{ steps.regex-match.outputs.match != '' }}
-        uses: ncipollo/release-action@v1.20.0
-        with:
-          body: ${{ steps.changelog.outputs.changelog }}
-          allowUpdates: true
-          tag: ${{ github.event.head_commit.message }}
-          name: Release ${{ github.event.head_commit.message }}
-          token: ${{ secrets.GITHUB_TOKEN }}
