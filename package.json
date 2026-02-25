@@ -32,7 +32,8 @@
     },
     "files": [
       "dist/**/*",
-      "assets/**/*"
+      "assets/**/*",
+      "scenes/**/*"
     ],
     "extraResources": ["glyph_features.sqlite"],
     "linux": {
